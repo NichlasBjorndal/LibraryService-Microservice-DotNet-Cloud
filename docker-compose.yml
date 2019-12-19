@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  bookservice:
+    image: ${DOCKER_REGISTRY-}bookservice
+    build:
+      context: .
+      dockerfile: BookService/Dockerfile
+
+  loanservice:
+    image: ${DOCKER_REGISTRY-}loanservice
+    build:
+      context: .
+      dockerfile: LoanService/Dockerfile
+
+
+  orderservice:
+    image: ${DOCKER_REGISTRY-}orderservice
+    build:
+      context: .
+      dockerfile: OrderService/Dockerfile
+
