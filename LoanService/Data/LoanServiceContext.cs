@@ -17,40 +17,32 @@ namespace LoanService.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var loan1 = new Loan
-            {
-                Id = 1,
-                UserId = 1,
-                BookId = 1,
-                StartDate = new DateTime(),
-                EndDate = new DateTime(),
-                Active = true
-            };
-
-            var loan2 = new Loan
-            {
-                Id = 2,
-                UserId = 1,
-                BookId = 2,
-                StartDate = new DateTime(),
-                EndDate = new DateTime(),
-                Active = false
-            };
+            var loopCount100Mb = 15000;
 
 
-            var loan3 = new Loan
+            var loans = new List<Loan>();
+
+            for (int i = 1; i < loopCount100Mb; i++)
             {
-                Id = 3,
-                UserId = 2,
-                BookId = 3,
-                StartDate = new DateTime(),
-                EndDate = new DateTime(),
-                Active = true
-            };
+
+                var loan1 = new Loan
+                {
+                    Id = i,
+                    UserId = 1,
+                    BookId = 1,
+                    StartDate = new DateTime(),
+                    EndDate = new DateTime(),
+                    Active = true
+                };
+
+                loans.Add(loan1);
+            }
+
 
             modelBuilder.Entity<Loan>().HasData(
-             loan1, loan2, loan3
+                loans
             );
+
         }
     }
 }

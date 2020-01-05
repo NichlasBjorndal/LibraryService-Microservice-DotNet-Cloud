@@ -20,58 +20,47 @@ namespace BookService.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var author1 = new Author
-            {
-                Id = 1,
-                FirstName = "Edger Allan",
-                LastName = "Poe"
-            };
+            var loopCount100Mb = 15000;
 
-            var book1 = new Book
-            {
-                Id = 1,
-                ISBN = "1234",
-                Title = "Book A",
-                AuthorId = 1
-            };
+            var authors = new List<Author>();
 
-            var author2 = new Author
+            for (int i = 1; i < loopCount100Mb; i++)
             {
-                Id = 2,
-                FirstName = "Thomas",
-                LastName = "Edison"
-            };
-            var book2 = new Book
-            {
-                Id = 2,
-                ISBN = "1234",
-                Title = "Book B",
-                AuthorId = 2
-            };
+                var author1 = new Author
+                {
+                    Id = i,
+                    FirstName = "Edger Allan",
+                    LastName = "Poe"
+                };
 
-            var author3 = new Author
-            {
-                Id = 3,
-                FirstName = "H.C",
-                LastName = "Andersen"
-            };
 
-            var book3 = new Book
+                authors.Add(author1);
+            }
+
+            var books = new List<Book>();
+
+            for (int i = 1; i < loopCount100Mb; i++)
             {
-                Id = 3,
-                ISBN = "1234",
-                Title = "Book Z",
-                AuthorId = 3
-            };
+                var book1 = new Book
+                {
+                    Id = i,
+                    ISBN = "1234",
+                    Title = "Book A",
+                    AuthorId = 1
+                };
+
+                books.Add(book1);
+            }
 
             modelBuilder.Entity<Author>().HasData(
-                author1, author2, author3
+                authors
             );
+
 
             modelBuilder.Entity<Book>(b =>
             {
                 b.HasData(
-                    book1, book2, book3
+                    books
                 );
 
             });

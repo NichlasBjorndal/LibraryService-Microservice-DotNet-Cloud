@@ -15,26 +15,26 @@ namespace OrderService.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var order = new Order
-            {
-                Id = 2,
-                OrderTime = default,
-                IsCompleted = false,
-                BookId = 7,
-               
-            };
+            var loopCount100Mb = 15000;
 
-            var order2 = new Order
+            var orders = new List<Order>();
+
+            for (int i = 1; i < loopCount100Mb; i++)
             {
-                Id = 3,
-                OrderTime = default,
-                IsCompleted = false,
-                BookId = 8,
-            };
+                var order1 = new Order
+                {
+                    Id = i,
+                    OrderTime = default,
+                    IsCompleted = false,
+                    BookId = 1,
+                };
+
+                orders.Add(order1);
+            }
 
 
             modelBuilder.Entity<Order>().HasData(
-                order, order2
+                orders
             );
         }
 

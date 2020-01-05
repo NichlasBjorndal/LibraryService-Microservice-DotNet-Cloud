@@ -13,6 +13,33 @@ namespace UserService.Models
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            var loopCount100Mb = 15000;
+
+            var users = new List<User>();
+
+            for (int i = 1; i < loopCount100Mb; i++)
+            {
+
+                var user1 = new User
+                {
+                    Id = i,
+                    firstName = "Nick",
+                    lastName = "Hansen",
+                    email = "abc@gmail.com",
+                    password = "thisIsAPW"
+                };
+
+                users.Add(user1);
+            }
+
+
+            modelBuilder.Entity<User>().HasData(
+                users
+            );
+        }
+
         public DbSet<UserService.Models.User> User { get; set; }
     }
 }
