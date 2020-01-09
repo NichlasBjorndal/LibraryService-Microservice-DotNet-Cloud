@@ -107,12 +107,12 @@ namespace OrderService.Controllers
         {
             _context.Order.Add(order);
 
+            await _context.SaveChangesAsync();
+
             if (order.IsCompleted)
             {
                 await SendBookOrderMsg(order);
             }
-
-            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetOrder", new { id = order.Id }, order);
         }
