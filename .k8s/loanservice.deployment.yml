@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loanservice
+  labels: 
+    app: loanservice
+spec:
+  selector:
+    matchLabels:
+      run: loanservice
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        run: loanservice
+    spec:
+      containers:
+      - name: loanservice
+        image: libraryservice.azurecr.io/loanservice:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        livenessProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 20

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookservice
+  labels: 
+    app: bookservice
+spec:
+  selector:
+    matchLabels:
+      run: bookservice
+  replicas: 36
+  template:
+    metadata:
+      labels:
+        run: bookservice
+    spec:
+      containers:
+      - name: bookservice
+        image: libraryservice.azurecr.io/bookservice:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        livenessProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 20

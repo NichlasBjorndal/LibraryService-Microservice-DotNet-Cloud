@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userservice
+  labels: 
+    app: userservice
+spec:
+  selector:
+    matchLabels:
+      run: userservice
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        run: userservice
+    spec:
+      containers:
+      - name: userservice
+        image: libraryservice.azurecr.io/userservice:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        livenessProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 20
